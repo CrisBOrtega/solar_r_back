@@ -1,0 +1,56 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model proyecto {
+  id           Int                   @id @default(autoincrement())
+  nombre       String
+  tipo_energia String
+  descripcion  String
+  pasos        paso[]
+  tecnologias  tecnologia_proyecto[]
+  recursos     recurso[]
+}
+
+model paso {
+  id          Int      @id @default(autoincrement())
+  paso        String
+  proyecto_id Int
+  proyecto    proyecto @relation(fields: [proyecto_id], references: [id])
+}
+
+model tecnologia {
+  id         Int                   @id @default(autoincrement())
+  tecnologia String
+  tipo       Boolean
+  proyectos  tecnologia_proyecto[]
+}
+
+model tecnologia_proyecto {
+  id            Int        @id @default(autoincrement())
+  proyecto_id   Int
+  proyecto      proyecto   @relation(fields: [proyecto_id], references: [id])
+  tecnologia_id Int
+  tecnologia    tecnologia @relation(fields: [tecnologia_id], references: [id])
+}
+
+model recurso {
+  id          Int      @id @default(autoincrement())
+  nombre      String
+  valor       Decimal
+  cantidad    Int
+  proyecto_id Int
+  proyecto    proyecto @relation(fields: [proyecto_id], references: [id])
+}
