@@ -38,6 +38,15 @@ export class ProyectoService {
                                   newProject.id
       )
 
+      //relacion proyectos
+      await this.prismaService.usuario_creacion_proyecto.create({
+          data:{
+              usuario_id: createProyectoDto.usuario_id,
+              proyecto_id: newProject.id
+          }
+      })
+
+
     return {
       message: "Proyecto creado con éxito",
       proyecto: newProject,
@@ -47,7 +56,7 @@ export class ProyectoService {
   }
 
   findAll() {
-    return `This action returns all proyecto`;
+    return this.prismaService.proyecto.findMany();
   }
 
   findOne(id: number) {

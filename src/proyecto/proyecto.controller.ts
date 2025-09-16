@@ -2,10 +2,13 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { ProyectoService } from './proyecto.service';
 import { CreateProyectoDto } from './dto/create-proyecto.dto';
 import { UpdateProyectoDto } from './dto/update-proyecto.dto';
+import {CreateInversionDto} from "./dto/create-inversion.dto";
+import {InversionService} from "./inversion.service";
 
 @Controller('proyecto')
 export class ProyectoController {
-  constructor(private readonly proyectoService: ProyectoService) {}
+  constructor(private readonly proyectoService: ProyectoService,
+              private readonly inversionService: InversionService,) {}
 
   @Post()
   create(@Body() createProyectoDto: CreateProyectoDto) {
@@ -30,5 +33,10 @@ export class ProyectoController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.proyectoService.remove(+id);
+  }
+
+  @Post('invertir')
+  invertir(@Body() createInversionDto: CreateInversionDto) {
+      return this.inversionService.invertir(createInversionDto);
   }
 }

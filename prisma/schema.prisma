@@ -14,14 +14,49 @@ datasource db {
   url      = "file:./dev.db"
 }
 
+model tipo_usuario {
+  id       Int       @id @default(autoincrement())
+  tipo     String
+  usuarios usuario[]
+}
+
+model usuario {
+  id                   Int                          @id @default(autoincrement())
+  username             String
+  password             String
+  tipo_id              Int
+  tipo                 tipo_usuario                 @relation(fields: [tipo_id], references: [id])
+  proyectos_creados    usuario_creacion_proyecto[]
+  proyectos_invertidos usuario_inversion_proyecto[]
+}
+
+model usuario_creacion_proyecto {
+  id              Int      @id @default(autoincrement())
+  usuario_id      Int
+  proyecto_id     Int
+  usuario_creador usuario  @relation(fields: [usuario_id], references: [id])
+  proyecto_creado proyecto @relation(fields: [proyecto_id], references: [id])
+}
+
+model usuario_inversion_proyecto {
+  id                 Int      @id @default(autoincrement())
+  usuario_id         Int
+  proyecto_id        Int
+  usuario_inversor   usuario  @relation(fields: [usuario_id], references: [id])
+  proyecto_invertido proyecto @relation(fields: [proyecto_id], references: [id])
+  cantidad           Decimal
+}
+
 model proyecto {
-  id           Int                   @id @default(autoincrement())
-  nombre       String
-  tipo_energia String
-  descripcion  String
-  pasos        paso[]
-  tecnologias  tecnologia_proyecto[]
-  recursos     recurso[]
+  id                  Int                          @id @default(autoincrement())
+  nombre              String
+  tipo_energia        String
+  descripcion         String
+  pasos               paso[]
+  tecnologias         tecnologia_proyecto[]
+  recursos            recurso[]
+  proyectos_usuario   usuario_creacion_proyecto[]
+  proyectos_inversion usuario_inversion_proyecto[]
 }
 
 model paso {

@@ -8,4 +8,5 @@ export class CreateProyectoDto {
   software : string[];
   hardware: string[];
   recursos : Recurso[];
+  usuario_id: number
 }
