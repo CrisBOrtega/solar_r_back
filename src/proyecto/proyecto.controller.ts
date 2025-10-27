@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {Controller, Get, Post, Body, Patch, Param, Delete, UseGuards} from '@nestjs/common';
 import { ProyectoService } from './proyecto.service';
 import { CreateProyectoDto } from './dto/create-proyecto.dto';
 import { UpdateProyectoDto } from './dto/update-proyecto.dto';
 import {CreateInversionDto} from "./dto/create-inversion.dto";
 import {InversionService} from "./inversion.service";
+import {JwtAuthGuard} from "../guard/jwt-auth/jwt-auth.guard";
 
 @Controller('proyecto')
 export class ProyectoController {
@@ -16,6 +17,7 @@ export class ProyectoController {
   }
 
   @Get()
+  @UseGuards(JwtAuthGuard)
   findAll() {
     return this.proyectoService.findAll();
   }

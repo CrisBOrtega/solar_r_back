@@ -11,13 +11,7 @@ export class UsuariosService {
   constructor(private prismaService: PrismaService) {}
 
   async create(createUsuarioDto: CreateUsuarioDto) {
-    return  this.prismaService.usuario.create({
-      data: {
-        username: createUsuarioDto.username,
-        password: await bcrypt.hash(createUsuarioDto.password, 10),
-        tipo_id: createUsuarioDto.tipo_id,
-      }
-    })
+   
   }
 
 

@@ -17,5 +17,10 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false
-  }
+  },
+  "include": [
+    "src",
+    "generated"   // 👈 aquí se incluye la carpeta donde Prisma genera el cliente
+  ],
+  "exclude": ["node_modules", "dist"]
 }

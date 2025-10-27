@@ -6,7 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
+  seed     = "ts-node prisma/seed.ts"
 }
 
 datasource db {
@@ -20,14 +20,24 @@ model tipo_usuario {
   usuarios usuario[]
 }
 
+model estado {
+  id       Int       @id @default(autoincrement())
+  nombre   String
+  usuarios usuario[]
+}
+
 model usuario {
   id                   Int                          @id @default(autoincrement())
   username             String
   password             String
+  email                String
   tipo_id              Int
+  token                String
+  estado_id            Int                          @default(2)
   tipo                 tipo_usuario                 @relation(fields: [tipo_id], references: [id])
   proyectos_creados    usuario_creacion_proyecto[]
   proyectos_invertidos usuario_inversion_proyecto[]
+  estado               estado                       @relation(fields: [estado_id], references: [id])
 }
 
 model usuario_creacion_proyecto {

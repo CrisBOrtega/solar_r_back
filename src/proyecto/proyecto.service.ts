@@ -55,6 +55,8 @@ export class ProyectoService {
 
   }
 
+
+
   findAll() {
     return this.prismaService.proyecto.findMany();
   }
