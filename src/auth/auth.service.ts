@@ -47,10 +47,11 @@ export class AuthService {
             }
         })
         await this.mailService.sendMail({
-            from:'Prueba solar_r "<michy@sena.edu.co>"',
+            from:'Solar Revolution "<solarR@solar_r.com>"',
             to: registerDto.email,
             subject: 'Verificación de cuenta',
-            html: `Hola ${registerDto.username}! registro exitoso. <br />
+            html: `Hola ${registerDto.username}! registro exitoso.  <br />
+                   Por favor da click en el siguiente enlace para verificar tu cuenta e ingresar a solar r:
                    <a href="${url_verificacion}">${url_verificacion}</a>
                   `,
         })
@@ -96,7 +97,9 @@ export class AuthService {
             //  header , payload , firma
             let payload = {
                 email: datos.email,
-                role:datos.tipo_id
+                role:datos.tipo_id,
+                user_id: datos.id,
+                
             }
             return {
                 id: datos.id,

@@ -17,9 +17,9 @@ export class ProyectoController {
   }
 
   @Get()
-  @UseGuards(JwtAuthGuard)
+  //@UseGuards(JwtAuthGuard)
   findAll() {
-    return this.proyectoService.findAll();
+    return this.proyectoService.findAllWithDetails();
   }
 
   @Get(':id')

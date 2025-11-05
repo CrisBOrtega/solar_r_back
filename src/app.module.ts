@@ -10,6 +10,7 @@ import * as process from "node:process";
 import {JwtModule} from "@nestjs/jwt";
 import {JwtStrategy} from "./jwt/jwt.strategy";
 import { InversionistasModule } from './inversionistas/inversionistas.module';
+import { EmprendedorModule } from './emprendedor/emprendedor.module';
 
 @Module({
   imports: [ProyectoModule, 
@@ -30,7 +31,8 @@ import { InversionistasModule } from './inversionistas/inversionistas.module';
                     expiresIn: '24h'
                 }
             }),
-            InversionistasModule
+            InversionistasModule,
+            EmprendedorModule
           ],
 
   controllers: [AppController],
